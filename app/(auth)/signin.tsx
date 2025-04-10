@@ -26,7 +26,7 @@ const Signin = () => {
   useFocusEffect(
     useCallback(() => {
       // Set nav bar color when this screen is focused
-      NavigationBar.setBackgroundColorAsync("#201a24");
+      NavigationBar.setBackgroundColorAsync("#a855f7");
       NavigationBar.setButtonStyleAsync("light");
 
       // return () => {
@@ -107,8 +107,8 @@ const Signin = () => {
         <View className=" py-16 p-2 flex items-center h-full">
           {/* <Image source={logo} style={{ width: 195, height: 90 }} /> */}
           <Text className="font-extrabold text-6xl mt-10">
-            <Text className=" text-color3 font-extrabold">well</Text>
-            <Text className=" text-color1 font-extrabold">neXus</Text>
+            <Text className=" text-purple-500 font-extrabold">well</Text>
+            <Text className=" text-purple-950 font-extrabold">neXus</Text>
           </Text>
           {/* <Text className="text-lg text-center text-color1 font-bold mt-28">
             Let's get you started
@@ -128,9 +128,9 @@ const Signin = () => {
                 touched,
               }) => (
                 <View className="w-full">
-                  <Text className="text-color1 mt-4 mb-2">Email</Text>
+                  <Text className="text-purple-500 mt-4 mb-2">Email</Text>
                   <TextInput
-                    className="h-14 border border-color1 text-color1 rounded px-2"
+                    className="h-14 border border-purple-500 text-color1 rounded px-2"
                     keyboardType="email-address"
                     onChangeText={handleChange("email")}
                     value={values.email}
@@ -141,9 +141,9 @@ const Signin = () => {
                       {errors.email}
                     </Text>
                   )}
-                  <Text className="text-color1 mt-4 mb-2">Password</Text>
+                  <Text className="text-purple-500 mt-4 mb-2">Password</Text>
                   <TextInput
-                    className="h-14 border border-color1 text-color1 rounded px-2"
+                    className="h-14 border border-purple-500 text-color1 rounded px-2"
                     secureTextEntry
                     onChangeText={handleChange("password")}
                     value={values.password}
@@ -157,9 +157,9 @@ const Signin = () => {
                   )}
                   <TouchableOpacity
                     onPress={() => handleSubmit()}
-                    className=" bg-color1 border border-color1 p-3 rounded-lg w-full mt-5 text-center items-center "
+                    className=" bg-purple-500 border border-purple-500 p-3 rounded-lg w-full mt-5 text-center items-center "
                   >
-                    <Text className=" text-xl font-semibold text-color6">
+                    <Text className=" text-xl font-semibold text-background-light">
                       {" "}
                       Sign In
                     </Text>
@@ -172,21 +172,24 @@ const Signin = () => {
                 className="flex flex-row justify-center items-center"
                 onPress={() => router.push("/signup")}
               >
-                <Text className="text-color1 font-semibold">New User? </Text>
-                <Text className="text-base font-semibold underline text-color3">
+                <Text className="text-text-medium font-semibold">
+                  New User?{" "}
+                </Text>
+                <Text className="text-base font-semibold underline text-text-dark">
                   Sign Up
                 </Text>
               </TouchableOpacity>
-              <Text className="text-center text-base  font-semibold mb-4 text-color3">
-                <View className="border-b-2 border-color1 p-2 mb-1 w-24" /> or{" "}
-                <View className="border-b-2 border-color1 p-2 mb-1 w-24" />
+              <Text className="text-center text-base  font-semibold mb-4 text-text-medium">
+                <View className="border-b-2 border-purple-500 p-2 mb-1 w-24" />{" "}
+                or{" "}
+                <View className="border-b-2 border-purple-500 p-2 mb-1 w-24" />
               </Text>
               <TouchableOpacity
                 onPress={handleGuest}
                 className="flex flex-row justify-center mb-5 p-2 items-center"
               >
-                <Text className="text-color1 font-semibold">Be a </Text>
-                <Text className="text-base font-semibold underline text-color3">
+                <Text className="text-text-medium font-semibold">Be a </Text>
+                <Text className="text-base font-semibold underline text-text-dark">
                   Guest User
                 </Text>
               </TouchableOpacity>

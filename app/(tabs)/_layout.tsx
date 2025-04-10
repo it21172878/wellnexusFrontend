@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router";
-import { Colors } from "./../../assets/Colors";
+import Colors from "./../../assets/Colors";
 import { FontAwesome5, Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 const TabLayout = () => {
@@ -7,10 +7,10 @@ const TabLayout = () => {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: Colors.PRIMARY,
-        tabBarInactiveTintColor: Colors.dark.text,
+        tabBarActiveTintColor: Colors.iconBgs.purple.bg,
+        tabBarInactiveTintColor: Colors.text.dark,
         tabBarStyle: {
-          backgroundColor: Colors.SECONDARY,
+          backgroundColor: Colors.primary[500],
           borderTopWidth: 0,
           position: "absolute",
           bottom: 0,
