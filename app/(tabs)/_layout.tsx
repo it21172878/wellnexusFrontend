@@ -1,11 +1,6 @@
 import { Tabs } from "expo-router";
 import { Colors } from "./../../assets/Colors";
-import {
-  FontAwesome5,
-  FontAwesome6,
-  Ionicons,
-  MaterialIcons,
-} from "@expo/vector-icons";
+import { FontAwesome5, Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 const TabLayout = () => {
   return (
@@ -39,8 +34,12 @@ const TabLayout = () => {
         name="home"
         options={{
           title: "Home",
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="home" size={28} color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? "home" : "home-outline"}
+              size={24}
+              color={color}
+            />
           ),
         }}
       />
@@ -48,8 +47,12 @@ const TabLayout = () => {
         name="treatments"
         options={{
           title: "Treatments",
-          tabBarIcon: ({ color }) => (
-            <MaterialIcons name="healing" size={28} color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? "trail-sign" : "trail-sign-outline"}
+              size={28}
+              color={color}
+            />
           ),
         }}
       />
@@ -57,8 +60,12 @@ const TabLayout = () => {
         name="doc-channel"
         options={{
           title: "Channel",
-          tabBarIcon: ({ color }) => (
-            <FontAwesome6 name="user-doctor" size={28} color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? "bookmark" : "bookmark-outline"}
+              size={28}
+              color={color}
+            />
           ),
         }}
       />
@@ -66,8 +73,12 @@ const TabLayout = () => {
         name="fun-events"
         options={{
           title: "Fun Events",
-          tabBarIcon: ({ color }) => (
-            <MaterialIcons name="emoji-events" size={28} color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? "trophy" : "trophy-outline"}
+              size={28}
+              color={color}
+            />
           ),
         }}
       />
@@ -75,8 +86,12 @@ const TabLayout = () => {
         name="profile"
         options={{
           title: "User",
-          tabBarIcon: ({ color }) => (
-            <FontAwesome5 name="user-alt" size={28} color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <FontAwesome5
+              name={focused ? "user-alt" : "user"}
+              size={28}
+              color={color}
+            />
           ),
         }}
       />

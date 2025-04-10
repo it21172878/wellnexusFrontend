@@ -238,7 +238,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import banner from "../../assets/images/banner.jpg";
 import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "@/config/firebaseConfig";
-import { useFocusEffect, useRouter } from "expo-router";
+import { Stack, useFocusEffect, useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as NavigationBar from "expo-navigation-bar";
 
@@ -334,6 +334,14 @@ const Home = () => {
     >
       <StatusBar barStyle="light-content" backgroundColor={"#201a24"} />
       <View style={{ flex: -1 }}>
+        {/* <Stack.Screen
+          options={{
+            title: "Details",
+            presentation: "card", // or 'modal', 'transparentModal'
+            animation: "slide_from_right", // 'fade', 'slide_from_bottom', etc.
+            headerShown: true,
+          }}
+        /> */}
         <View className=" ">
           <ImageBackground
             resizeMode="stretch"
@@ -364,7 +372,7 @@ const Home = () => {
           showsVerticalScrollIndicator={false}
         >
           <View className="p-4 flex-row items-center">
-            <Text className="text-3xl text-color1 mr-2 font-semibold">
+            <Text className="text-3xl text-color2 mr-2 font-semibold">
               Mental Diseases
             </Text>
           </View>
@@ -385,7 +393,7 @@ const Home = () => {
           </View>
 
           <View className="p-4 flex-row items-center">
-            <Text className="text-3xl text-color1 mr-2 font-semibold">
+            <Text className="text-3xl text-color2 mr-2 font-semibold">
               Suggest For You
             </Text>
           </View>
@@ -403,7 +411,7 @@ const Home = () => {
             <ActivityIndicator animating color={"#041421"} />
           )}
           <View className="p-4 flex-row items-center">
-            <Text className="text-3xl text-color1 mr-2 font-semibold">
+            <Text className="text-3xl text-color2 mr-2 font-semibold">
               Suggest For You
             </Text>
           </View>
@@ -421,7 +429,7 @@ const Home = () => {
             <ActivityIndicator animating color={"#041421"} />
           )}
           <View className="p-4 flex-row items-center">
-            <Text className="text-3xl text-color1 mr-2 font-semibold">
+            <Text className="text-3xl text-color2 mr-2 font-semibold">
               Suggest For You
             </Text>
           </View>

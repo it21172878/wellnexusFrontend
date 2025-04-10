@@ -10,6 +10,7 @@ import {
 import axios from "axios";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Stack } from "expo-router";
 // import Header from "@/layouts/header";
 // import Ionicons from "@expo/vector-icons/Ionicons";
 // import { Link } from "expo-router";
@@ -53,6 +54,24 @@ const HandlePredict = () => {
       ]}
     >
       <View>
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            title: "Check Progress",
+            headerBackTitle: "Back",
+            presentation: "card", // or 'modal', 'transparentModal'
+            animation: "slide_from_right", // 'fade', 'slide_from_bottom', etc.
+            headerStyle: {
+              backgroundColor: "#201a24", // Change the background color of the header
+            },
+            headerTitleStyle: {
+              fontSize: 20, // Change the font size of the title
+              fontWeight: "semibold", // Make the title bold
+              color: "#879f92", // Change the color of the title
+            },
+            headerTintColor: "#879f92", // Change the color of the back button
+          }}
+        />
         <ScrollView
           style={{
             // opacity: 0.8,
@@ -60,38 +79,29 @@ const HandlePredict = () => {
             height: 450,
           }}
         >
-          <View className=" my-2 p-2">
-            <View>
+          <View>
+            {/* <View>
               <Text className=" text-xl text-color4 font-semibold">
                 Fun Events Predict
               </Text>
               <View className="border-b border-color4" />
-            </View>
-            {/* <Header
-        left={
-          <Link href={"/"} asChild>
-            <TouchableOpacity>
-              <Ionicons name="arrow-back" size={24} color="black" />
-            </TouchableOpacity>
-          </Link>
-        }
-        centerText="Fun Events"
-      /> */}
+            </View> */}
 
-            <View className=" items-center justify-center">
-              <View className=" items-center justify-center mt-2">
+            <View className=" items-center justify-center ">
+              <View className=" mt-2">
                 <Text className=" text-xl/2 text-justify font-light text-color1 ">
                   Please feel to free your experiences with us regarding this
                   event. It will help us gain some insight into your health
                   status.
                 </Text>
               </View>
-              <View className=" items-center justify-center mt-2">
+
+              <View>
                 <TextInput
                   placeholder="Enter your review..."
-                  className=" items-center justify-center w-96 border border-color1 rounded-lg text-base mt-4 focus:border-lime-600 focus:ring-1 focus:ring-color1"
                   value={review}
                   onChangeText={setReview}
+                  className=" w-[346px] border border-color1 rounded-lg text-base mt-4 focus:border-color3 "
                 />
               </View>
             </View>
