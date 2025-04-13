@@ -145,7 +145,8 @@ const ProfileScreen = () => {
   const user = {
     name: "Alex Johnson",
     bio: "Focusing on my mental wellbeing",
-    avatar: "https://randomuser.me/api/portraits/women/45.jpg",
+    avatar:
+      "https://www.dpliyanagama.me/static/media/avatar.76b57038fed809d1b6a5.jpg",
     moodLevel: 72,
     sessions: 12,
     meditation: 645,
@@ -228,7 +229,7 @@ const ProfileScreen = () => {
                 testID="logout-button"
               >
                 <View className=" flex-row items-center justify-center">
-                  <Text className="text-lg font-thin text-white mr-2">
+                  <Text className="text-lg font-bold text-white mr-2">
                     Log Out
                   </Text>
                   <MaterialCommunityIcons

@@ -25,7 +25,7 @@ const HandlePredict = () => {
 
     try {
       setLoading(true);
-      const response = await axios.post("http://192.168.190.85:5000/predict", {
+      const response = await axios.post("http://192.168.71.85:5000/predict", {
         review: review,
       });
       console.log("response", response);
@@ -48,7 +48,7 @@ const HandlePredict = () => {
   return (
     <SafeAreaView
       style={[
-        { backgroundColor: "#f7f7fc" },
+        { backgroundColor: "#f9fafb" },
         Platform.OS == "android" && { paddingBottom: 270 },
         Platform.OS == "ios" && { paddingBottom: 20 },
       ]}
@@ -62,14 +62,14 @@ const HandlePredict = () => {
             presentation: "card", // or 'modal', 'transparentModal'
             animation: "slide_from_right", // 'fade', 'slide_from_bottom', etc.
             headerStyle: {
-              backgroundColor: "#201a24", // Change the background color of the header
+              backgroundColor: "#a855f7", // Change the background color of the header
             },
             headerTitleStyle: {
               fontSize: 20, // Change the font size of the title
               fontWeight: "semibold", // Make the title bold
-              color: "#879f92", // Change the color of the title
+              color: "#f9fafb", // Change the color of the title
             },
-            headerTintColor: "#879f92", // Change the color of the back button
+            headerTintColor: "#f9fafb", // Change the color of the back button
           }}
         />
         <ScrollView
@@ -77,6 +77,7 @@ const HandlePredict = () => {
             // opacity: 0.8,
             // backgroundColor: "black",
             height: 450,
+            marginTop: -15,
           }}
         >
           <View>
@@ -88,7 +89,7 @@ const HandlePredict = () => {
             </View> */}
 
             <View className=" items-center justify-center ">
-              <View className=" mt-2">
+              <View className="">
                 <Text className=" text-xl/2 text-justify font-light text-color1 ">
                   Please feel to free your experiences with us regarding this
                   event. It will help us gain some insight into your health
@@ -108,10 +109,10 @@ const HandlePredict = () => {
             <View className=" items-center justify-center p-2">
               <TouchableOpacity
                 onPress={handlePredict}
-                className="bg-color1 rounded-md p-4 mt-2 w-full items-center"
+                className="bg-primary-500 border border-primary-500 rounded-md p-4 mt-2 w-full items-center"
               >
-                <Text className=" text-color6 font-semibold">
-                  Share your Expression{" "}
+                <Text className=" text-gray-50 font-semibold">
+                  Share Your Expression
                 </Text>
               </TouchableOpacity>
             </View>

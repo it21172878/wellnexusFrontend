@@ -112,7 +112,7 @@ const FunEvents = () => {
         /> */}
         <ScrollView style={{ marginTop: 110 }}>
           <View className=" content-center items-center justify-center mt-36">
-            <Text className="text-color1 text-3xl font-bold mb-4">
+            <Text className="text-text-dark text-3xl font-bold mb-4">
               Tic-Tac-Toe
             </Text>
 
@@ -121,18 +121,20 @@ const FunEvents = () => {
               {board.map((cell, index) => (
                 <TouchableOpacity
                   key={index}
-                  className="w-[70px] h-[70px] bg-color1 border border-color3 items-center justify-center rounded-full m-1"
+                  className="w-[70px] h-[70px] border border-primary-500 items-center justify-center rounded-full m-1"
                   onPress={() => handlePress(index)}
                 >
-                  <Text className="text-color3 text-4xl font-bold">{cell}</Text>
+                  <Text className="text-primary-500 text-4xl font-bold">
+                    {cell}
+                  </Text>
                 </TouchableOpacity>
               ))}
             </View>
             <TouchableOpacity
-              className="mt-10 p-3 bg-color3 rounded-lg w-36 items-center justify-center border border-color1"
+              className="mt-10 p-3 bg-primary-500 rounded-lg w-36 items-center justify-center"
               onPress={resetGame}
             >
-              <Text className="text-color1 text-lg font-bold">
+              <Text className="text-gray-50 text-lg font-bold">
                 Restart Game
               </Text>
             </TouchableOpacity>
@@ -140,21 +142,21 @@ const FunEvents = () => {
             {/* Prompt Box (Modal) when Game Over */}
             <Modal visible={isGameOver} transparent animationType="slide">
               <View className="flex-1 justify-center items-center bg-[#201a245b]">
-                <View className="bg-color1 border border-color3 p-4 rounded-lg justify-center items-center w-96 h-60">
-                  <Text className="text-color3 text-2xl font-bold mb-3">
+                <View className="bg-gray-50 p-4 rounded-lg justify-center items-center w-96 h-60">
+                  <Text className="text-text-dark text-2xl font-bold mb-3">
                     {winner === "Draw"
                       ? "🤝 It's a Draw!"
                       : `🎉 Player ${winner} Wins!`}
                   </Text>
 
                   <TouchableOpacity
-                    className="mt-4 px-6 py-3 bg-color3 rounded-lg"
+                    className="mt-4 px-6 py-3 bg-primary-500 rounded-lg"
                     onPress={() => (
                       resetGame(), // Reset the game
                       router.navigate("/mentalDisease/handlePredict") // Navigate to review screen
                     )}
                   >
-                    <Text className="text-color1 text-lg font-bold">
+                    <Text className="text-gray-50 text-lg font-bold">
                       Review
                     </Text>
                   </TouchableOpacity>
