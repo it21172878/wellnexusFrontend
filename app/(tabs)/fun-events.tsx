@@ -13,6 +13,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Header } from "react-native/Libraries/NewAppScreen";
 import { Ionicons } from "@expo/vector-icons";
 import banner from "@/assets/images/banner.png";
+import { LinearGradient } from "expo-linear-gradient";
 // import Header from "@/layouts/header";
 // import Ionicons from "@expo/vector-icons/Ionicons";
 
@@ -76,31 +77,31 @@ const FunEvents = () => {
     setIsGameOver(false); // Hide the modal
   };
   return (
-    <SafeAreaView
-      style={[
-        { backgroundColor: "#f7f7fc" },
-        Platform.OS == "android" && { paddingBottom: 60 },
-        Platform.OS == "ios" && { paddingBottom: 20 },
-      ]}
-    >
-      <View style={{ flex: -1 }}>
-        <View className=" ">
-          <ImageBackground
-            resizeMode="cover"
-            style={{
-              position: "absolute",
-              width: "100%",
-              height: 220, // or whatever height you need
-              top: 0,
-              left: 0,
-              right: 0,
-              borderBottomLeftRadius: 100,
-            }}
-            source={banner}
-          ></ImageBackground>
-        </View>
-        {/* <View> */}
-        {/* <Header
+    <LinearGradient colors={["#f7f7fc", "#e6f2ff"]} className="flex-1">
+      <SafeAreaView
+        style={[
+          Platform.OS == "android" && { paddingBottom: 60 },
+          Platform.OS == "ios" && { paddingBottom: 20 },
+        ]}
+      >
+        <View style={{ flex: -1 }}>
+          <View className=" ">
+            <ImageBackground
+              resizeMode="cover"
+              style={{
+                position: "absolute",
+                width: "100%",
+                height: 220, // or whatever height you need
+                top: 0,
+                left: 0,
+                right: 0,
+                borderBottomLeftRadius: 100,
+              }}
+              source={banner}
+            ></ImageBackground>
+          </View>
+          {/* <View> */}
+          {/* <Header
           left={
             <Link href={"/"} asChild>
               <TouchableOpacity>
@@ -110,63 +111,64 @@ const FunEvents = () => {
           }
           centerText="Fun Events"
         /> */}
-        <ScrollView style={{ marginTop: 110 }}>
-          <View className=" content-center items-center justify-center mt-36">
-            <Text className="text-text-dark text-3xl font-bold mb-4">
-              Tic-Tac-Toe
-            </Text>
-
-            {/* 3x3 Grid Fix */}
-            <View className="flex flex-wrap flex-row w-[240px]">
-              {board.map((cell, index) => (
-                <TouchableOpacity
-                  key={index}
-                  className="w-[70px] h-[70px] border border-primary-500 items-center justify-center rounded-full m-1"
-                  onPress={() => handlePress(index)}
-                >
-                  <Text className="text-primary-500 text-4xl font-bold">
-                    {cell}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-            <TouchableOpacity
-              className="mt-10 p-3 bg-primary-500 rounded-lg w-36 items-center justify-center"
-              onPress={resetGame}
-            >
-              <Text className="text-gray-50 text-lg font-bold">
-                Restart Game
+          <ScrollView style={{ marginTop: 110 }}>
+            <View className=" content-center items-center justify-center mt-36">
+              <Text className="text-text-dark text-3xl font-bold mb-4">
+                Relax Your Mind
               </Text>
-            </TouchableOpacity>
 
-            {/* Prompt Box (Modal) when Game Over */}
-            <Modal visible={isGameOver} transparent animationType="slide">
-              <View className="flex-1 justify-center items-center bg-[#201a245b]">
-                <View className="bg-gray-50 p-4 rounded-lg justify-center items-center w-96 h-60">
-                  <Text className="text-text-dark text-2xl font-bold mb-3">
-                    {winner === "Draw"
-                      ? "🤝 It's a Draw!"
-                      : `🎉 Player ${winner} Wins!`}
-                  </Text>
-
+              {/* 3x3 Grid Fix */}
+              <View className="flex flex-wrap flex-row w-[240px]">
+                {board.map((cell, index) => (
                   <TouchableOpacity
-                    className="mt-4 px-6 py-3 bg-primary-500 rounded-lg"
-                    onPress={() => (
-                      resetGame(), // Reset the game
-                      router.navigate("/mentalDisease/handlePredict") // Navigate to review screen
-                    )}
+                    key={index}
+                    className="w-[70px] h-[70px] border border-primary-500 items-center justify-center rounded-full m-1"
+                    onPress={() => handlePress(index)}
                   >
-                    <Text className="text-gray-50 text-lg font-bold">
-                      Review
+                    <Text className="text-primary-500 text-4xl font-bold">
+                      {cell}
                     </Text>
                   </TouchableOpacity>
-                </View>
+                ))}
               </View>
-            </Modal>
-          </View>
-        </ScrollView>
-      </View>
-    </SafeAreaView>
+              <TouchableOpacity
+                className="mt-10 p-3 bg-primary-500 rounded-lg w-36 items-center justify-center"
+                onPress={resetGame}
+              >
+                <Text className="text-gray-50 text-lg font-bold">
+                  Restart Game
+                </Text>
+              </TouchableOpacity>
+
+              {/* Prompt Box (Modal) when Game Over */}
+              <Modal visible={isGameOver} transparent animationType="slide">
+                <View className="flex-1 justify-center items-center bg-[#201a245b]">
+                  <View className="bg-gray-50 p-4 rounded-lg justify-center items-center w-96 h-60">
+                    <Text className="text-text-dark text-2xl font-bold mb-3">
+                      {winner === "Draw"
+                        ? "🤝 It's a Draw!"
+                        : `🎉 Player ${winner} Wins!`}
+                    </Text>
+
+                    <TouchableOpacity
+                      className="mt-4 px-6 py-3 bg-primary-500 rounded-lg"
+                      onPress={() => (
+                        resetGame(), // Reset the game
+                        router.navigate("/mentalDisease/handlePredict") // Navigate to review screen
+                      )}
+                    >
+                      <Text className="text-gray-50 text-lg font-bold">
+                        Review
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </Modal>
+            </View>
+          </ScrollView>
+        </View>
+      </SafeAreaView>
+    </LinearGradient>
   );
 };
 

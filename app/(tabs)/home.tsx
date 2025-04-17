@@ -248,6 +248,7 @@ import { db } from "@/config/firebaseConfig";
 import { Stack, useFocusEffect, useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as NavigationBar from "expo-navigation-bar";
+import { LinearGradient } from "expo-linear-gradient";
 
 interface Disease {
   name: string;
@@ -277,7 +278,7 @@ const Home = () => {
   };
 
   const renderItem = ({ item }: { item: Disease }) => (
-    <View className=" flex flex-col max-w-56 max-h-56 justify-center mx-1">
+    <View className=" p-2 mr-2 flex flex-col max-w-56 max-h-56 justify-center bg-gray-50 rounded-2xl shadow-md overflow-hidden">
       <View>
         <Image
           resizeMode="cover"
@@ -393,125 +394,127 @@ const Home = () => {
   };
 
   return (
-    <View className="flex-1 bg-gray-50">
-      <StatusBar barStyle="light-content" backgroundColor={"#a855f7"} />
+    <LinearGradient colors={["#f7f7fc", "#e6f2ff"]} className="flex-1">
+      <View className="flex-1">
+        <StatusBar barStyle="light-content" backgroundColor={"#a855f7"} />
 
-      <View className=" relative" style={{ elevation: 4 }}>
-        <ImageBackground
-          style={{
-            width: "100%",
-            height: 190,
-            top: 0,
-            left: 0,
-            right: 0,
-            zIndex: 1,
-            marginBottom: 10,
-          }}
-          resizeMode="contain"
-          source={banner}
-        ></ImageBackground>
+        <View className=" relative" style={{ elevation: 4 }}>
+          <ImageBackground
+            style={{
+              width: "100%",
+              height: 190,
+              top: 0,
+              left: 0,
+              right: 0,
+              zIndex: 1,
+              marginBottom: 10,
+            }}
+            resizeMode="contain"
+            source={banner}
+          ></ImageBackground>
+        </View>
+
+        <ScrollView
+          className=" px-4 "
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              tintColor="#a855f7"
+              colors={["#a855f7"]}
+            />
+          }
+          contentContainerStyle={{ paddingBottom: insets.bottom + 80 }}
+          overScrollMode="always"
+          showsVerticalScrollIndicator={false}
+        >
+          <View className=" flex-row items-center">
+            <Text className="text-2xl font-semibold text-text-dark mb-3">
+              Mental Diseases
+            </Text>
+          </View>
+
+          <View className="flex-row items-center justify-center pb-5">
+            {loading ? (
+              <View className="">
+                <FlatList
+                  data={[...Array(5)]} // Placeholder for 5 skeleton cards
+                  renderItem={() => <SkeletonCard />}
+                  horizontal
+                  contentContainerStyle={{ padding: 2 }}
+                  showsHorizontalScrollIndicator={false}
+                  scrollEnabled={true}
+                />
+                {/* {[...Array(55)].map((_, index) => (
+                <SkeletonCard key={index} />
+              ))} */}
+              </View>
+            ) : (
+              <FlatList
+                data={diseases}
+                renderItem={renderItem}
+                horizontal
+                contentContainerStyle={{ padding: 2 }}
+                showsHorizontalScrollIndicator={false}
+                scrollEnabled={true}
+              />
+            )}
+          </View>
+          <View className="flex-row items-center justify-center">
+            {loading ? (
+              <View className="">
+                <FlatList
+                  data={[...Array(5)]} // Placeholder for 5 skeleton cards
+                  renderItem={() => <SkeletonCard />}
+                  horizontal
+                  contentContainerStyle={{ padding: 2 }}
+                  showsHorizontalScrollIndicator={false}
+                  scrollEnabled={true}
+                />
+                {/* {[...Array(55)].map((_, index) => (
+                <SkeletonCard key={index} />
+              ))} */}
+              </View>
+            ) : (
+              <FlatList
+                data={diseases}
+                renderItem={renderItem}
+                horizontal
+                contentContainerStyle={{ padding: 2 }}
+                showsHorizontalScrollIndicator={false}
+                scrollEnabled={true}
+              />
+            )}
+          </View>
+          <View className="flex-row items-center justify-center">
+            {loading ? (
+              <View className="">
+                <FlatList
+                  data={[...Array(5)]} // Placeholder for 5 skeleton cards
+                  renderItem={() => <SkeletonCard />}
+                  horizontal
+                  contentContainerStyle={{ padding: 2 }}
+                  showsHorizontalScrollIndicator={false}
+                  scrollEnabled={true}
+                />
+                {/* {[...Array(55)].map((_, index) => (
+                <SkeletonCard key={index} />
+              ))} */}
+              </View>
+            ) : (
+              <FlatList
+                data={diseases}
+                renderItem={renderItem}
+                horizontal
+                contentContainerStyle={{ padding: 2 }}
+                showsHorizontalScrollIndicator={false}
+                scrollEnabled={true}
+              />
+            )}
+          </View>
+        </ScrollView>
       </View>
-
-      <ScrollView
-        className=" px-4 "
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-            tintColor="#a855f7"
-            colors={["#a855f7"]}
-          />
-        }
-        contentContainerStyle={{ paddingBottom: insets.bottom + 80 }}
-        overScrollMode="always"
-        showsVerticalScrollIndicator={false}
-      >
-        <View className="p-2 flex-row items-center">
-          <Text className="text-2xl font-semibold text-text-dark mb-3">
-            Mental Diseases
-          </Text>
-        </View>
-
-        <View className="flex-row items-center justify-center">
-          {loading ? (
-            <View className="">
-              <FlatList
-                data={[...Array(5)]} // Placeholder for 5 skeleton cards
-                renderItem={() => <SkeletonCard />}
-                horizontal
-                contentContainerStyle={{ padding: 2 }}
-                showsHorizontalScrollIndicator={false}
-                scrollEnabled={true}
-              />
-              {/* {[...Array(55)].map((_, index) => (
-                <SkeletonCard key={index} />
-              ))} */}
-            </View>
-          ) : (
-            <FlatList
-              data={diseases}
-              renderItem={renderItem}
-              horizontal
-              contentContainerStyle={{ padding: 2 }}
-              showsHorizontalScrollIndicator={false}
-              scrollEnabled={true}
-            />
-          )}
-        </View>
-        <View className="flex-row items-center justify-center">
-          {loading ? (
-            <View className="">
-              <FlatList
-                data={[...Array(5)]} // Placeholder for 5 skeleton cards
-                renderItem={() => <SkeletonCard />}
-                horizontal
-                contentContainerStyle={{ padding: 2 }}
-                showsHorizontalScrollIndicator={false}
-                scrollEnabled={true}
-              />
-              {/* {[...Array(55)].map((_, index) => (
-                <SkeletonCard key={index} />
-              ))} */}
-            </View>
-          ) : (
-            <FlatList
-              data={diseases}
-              renderItem={renderItem}
-              horizontal
-              contentContainerStyle={{ padding: 2 }}
-              showsHorizontalScrollIndicator={false}
-              scrollEnabled={true}
-            />
-          )}
-        </View>
-        <View className="flex-row items-center justify-center">
-          {loading ? (
-            <View className="">
-              <FlatList
-                data={[...Array(5)]} // Placeholder for 5 skeleton cards
-                renderItem={() => <SkeletonCard />}
-                horizontal
-                contentContainerStyle={{ padding: 2 }}
-                showsHorizontalScrollIndicator={false}
-                scrollEnabled={true}
-              />
-              {/* {[...Array(55)].map((_, index) => (
-                <SkeletonCard key={index} />
-              ))} */}
-            </View>
-          ) : (
-            <FlatList
-              data={diseases}
-              renderItem={renderItem}
-              horizontal
-              contentContainerStyle={{ padding: 2 }}
-              showsHorizontalScrollIndicator={false}
-              scrollEnabled={true}
-            />
-          )}
-        </View>
-      </ScrollView>
-    </View>
+    </LinearGradient>
   );
 };
 

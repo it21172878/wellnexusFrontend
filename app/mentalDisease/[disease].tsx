@@ -427,6 +427,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "@/config/firebaseConfig";
 import DatePickerComponent from "@/components/diseases/DatePickerComponent";
+import { LinearGradient } from "expo-linear-gradient";
 
 interface Disease {
   name: string;
@@ -697,51 +698,52 @@ const Disease = () => {
     //     Platform.OS == "ios" && { paddingBottom: 20 },
     //   ]}
     // >
-    <View className="flex-1 bg-gray-50">
-      <View style={{ flex: -1 }}>
-        <Stack.Screen
-          options={{
-            headerShown: true,
-            title: disease ? `${disease}` : "", // Dynamically set the title
-            headerBackTitle: "Back",
-            presentation: "card", // or 'modal', 'transparentModal'
-            animation: "slide_from_right", // 'fade', 'slide_from_bottom', etc.
-            headerStyle: {
-              backgroundColor: "#a855f7", // Change the background color of the header
-            },
-            headerTitleStyle: {
-              fontSize: 20, // Change the font size of the title
-              fontWeight: "semibold", // Make the title bold
-              color: "#F3E8FF", // Change the color of the title
-            },
-            headerTintColor: "#F3E8FF", // Change the color of the back button
-          }}
-        />
-        <View className=" ">
-          {loading ? (
-            <View className=" h-screen">
-              <SkeletonCard />
-            </View>
-          ) : (
-            <FlatList
-              ref={flatListRef}
-              data={carouselData?.[0]?.images} // Provide an empty array as a fallback
-              renderItem={carouselItem}
-              horizontal
-              scrollEnabled={false}
-              showsHorizontalScrollIndicator={false}
-            />
-          )}
-        </View>
+    <LinearGradient colors={["#f7f7fc", "#e6f2ff"]} className="flex-1">
+      <View className="flex-1 ">
+        <View style={{ flex: -1 }}>
+          <Stack.Screen
+            options={{
+              headerShown: true,
+              title: disease ? `${disease}` : "", // Dynamically set the title
+              headerBackTitle: "Back",
+              presentation: "card", // or 'modal', 'transparentModal'
+              animation: "slide_from_right", // 'fade', 'slide_from_bottom', etc.
+              headerStyle: {
+                backgroundColor: "#a855f7", // Change the background color of the header
+              },
+              headerTitleStyle: {
+                fontSize: 20, // Change the font size of the title
+                fontWeight: "semibold", // Make the title bold
+                color: "#F3E8FF", // Change the color of the title
+              },
+              headerTintColor: "#F3E8FF", // Change the color of the back button
+            }}
+          />
+          <View className=" ">
+            {loading ? (
+              <View className=" h-screen">
+                <SkeletonCard />
+              </View>
+            ) : (
+              <FlatList
+                ref={flatListRef}
+                data={carouselData?.[0]?.images} // Provide an empty array as a fallback
+                renderItem={carouselItem}
+                horizontal
+                scrollEnabled={false}
+                showsHorizontalScrollIndicator={false}
+              />
+            )}
+          </View>
 
-        <ScrollView
-          style={{
-            height: 450,
-            marginTop: -24,
-          }}
-          showsVerticalScrollIndicator={false}
-        >
-          {/* <View className="flex-1 flex-row mt-4 mx-2 p-2">
+          <ScrollView
+            style={{
+              height: 450,
+              marginTop: -24,
+            }}
+            showsVerticalScrollIndicator={false}
+          >
+            {/* <View className="flex-1 flex-row mt-4 mx-2 p-2">
             <Ionicons name="location-sharp" size={24} color="#7C3AED" />
             <Text className="max-w-[75%] text-color4 font-bold">
               {diseaseData?.[0].name} |{"  "}
@@ -753,7 +755,7 @@ const Disease = () => {
               </Text>
             </Text>
           </View> */}
-          {/* <View className="flex-1 mx-2 p-2">
+            {/* <View className="flex-1 mx-2 p-2">
             <Image
               source={{ uri: diseaseData?.[0].image }}
               className="h-56 rounded-[25px]"
@@ -765,30 +767,33 @@ const Disease = () => {
               resizeMode="cover"
             />
           </View> */}
-          <View className=" p-2">
-            <View>
-              <Text className="text-text-dark text-lg font-bold mx-2 mt-2">
-                Description
-              </Text>
-              <Text className="text-text-medium text-base mx-2 mt-2">
-                {diseaseData?.[0].description}
-              </Text>
+            <View className=" p-2">
+              <View>
+                <Text className="text-text-dark text-lg font-bold mx-2 mt-2">
+                  Description
+                </Text>
+                <Text className="text-text-medium text-base mx-2 mt-2">
+                  {diseaseData?.[0].description}
+                </Text>
+              </View>
+              <View>
+                <Text className="text-text-dark text-lg font-bold mx-2 mt-2">
+                  Symptoms
+                </Text>
+                <Text className="text-text-medium text-base mx-2 mt-2">
+                  {diseaseData?.[0].symptoms.map((symptom, index) => (
+                    <Text
+                      key={index}
+                      className="text-color1 text-base mx-2 mt-2"
+                    >
+                      {symptom}
+                      {index !== diseaseData[0].symptoms.length - 1 && "\n"}
+                    </Text>
+                  ))}
+                </Text>
+              </View>
             </View>
-            <View>
-              <Text className="text-text-dark text-lg font-bold mx-2 mt-2">
-                Symptoms
-              </Text>
-              <Text className="text-text-medium text-base mx-2 mt-2">
-                {diseaseData?.[0].symptoms.map((symptom, index) => (
-                  <Text key={index} className="text-color1 text-base mx-2 mt-2">
-                    {symptom}
-                    {index !== diseaseData[0].symptoms.length - 1 && "\n"}
-                  </Text>
-                ))}
-              </Text>
-            </View>
-          </View>
-          {/* <View className="flex-1 mx-3 mt-5">
+            {/* <View className="flex-1 mx-3 mt-5">
             <DatePickerComponent onConfirm={(date) => setSelectedDate(date)} />
             <Text className="text-lg mt-2 text-color4 mb-4">
               {selectedDate
@@ -796,10 +801,11 @@ const Disease = () => {
                 : "No date selected"}
             </Text>
           </View> */}
-        </ScrollView>
+          </ScrollView>
+        </View>
+        {/* </SafeAreaView> */}
       </View>
-      {/* </SafeAreaView> */}
-    </View>
+    </LinearGradient>
   );
 };
 
