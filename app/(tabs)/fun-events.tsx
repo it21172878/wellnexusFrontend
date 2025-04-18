@@ -151,7 +151,7 @@ const FunEvents = () => {
                     </Text>
 
                     <TouchableOpacity
-                      className="mt-4 px-6 py-3 bg-primary-500 rounded-lg"
+                      className="mt-4 px-6 py-3 bg-purple-600 rounded-lg"
                       onPress={() => (
                         resetGame(), // Reset the game
                         router.navigate("/mentalDisease/handlePredict") // Navigate to review screen

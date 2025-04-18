@@ -136,7 +136,7 @@ const TreatmentPage = () => {
               </View>
             </View>
 
-            <TouchableOpacity className="bg-purple-500 py-3 rounded-lg items-center">
+            <TouchableOpacity className="bg-purple-600 py-3 rounded-lg items-center">
               <Text className="text-gray-50 font-medium">
                 Complete Check-in
               </Text>
@@ -158,7 +158,7 @@ const TreatmentPage = () => {
               </View>
               <View className="h-2 bg-purple-100 rounded-full overflow-hidden">
                 <View
-                  className="h-full bg-purple-500 rounded-full"
+                  className="h-full bg-purple-600 rounded-full"
                   style={{ width: `${treatmentProgress}%` }}
                 />
               </View>

@@ -109,7 +109,7 @@ const HandlePredict = () => {
             <View className=" items-center justify-center p-2">
               <TouchableOpacity
                 onPress={handlePredict}
-                className="bg-primary-500 border border-primary-500 rounded-md p-4 mt-2 w-full items-center"
+                className="bg-purple-600 border border-purple-600 rounded-md p-4 mt-2 w-full items-center"
               >
                 <Text className=" text-gray-50 font-semibold">
                   Share Your Expression
