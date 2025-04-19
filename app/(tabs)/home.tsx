@@ -534,7 +534,7 @@ const Home = () => {
             { useNativeDriver: false }
           )}
           scrollEventThrottle={16}
-          className="px-4"
+          className="px-2"
           refreshControl={
             <RefreshControl
               refreshing={refreshing}

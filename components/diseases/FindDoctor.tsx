@@ -20,12 +20,8 @@ const FindDoctor: React.FC<FindDoctorProps> = ({ date }) => {
       NavigationBar.setButtonStyleAsync("light");
     }, [])
   );
-  const [slotsVisible, setSlotsVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [formVisible, setFormVisible] = useState(false);
-  //   const handlePress = () => {
-  //     setSlotsVisible(!slotsVisible);
-  //   };
 
   const handleFormSubmit = async (values: {
     fullName: string;
@@ -38,10 +34,7 @@ const FindDoctor: React.FC<FindDoctorProps> = ({ date }) => {
         await addDoc(collection(db, "channels"), {
           ...values,
           email: userEmail,
-          //   slot: selectedSlot,
           date: date.toISOString(),
-          //   guests: selectedNumber,
-          //   disease: disease,
         });
 
         alert("Channelling Successfully Done!");
@@ -58,30 +51,6 @@ const FindDoctor: React.FC<FindDoctorProps> = ({ date }) => {
   const handleCloseModal = () => {
     setModalVisible(false);
   };
-  //   const handleSlotPress = (slot) => {
-  //     let prevSlot = selectedSlot;
-  //     if (prevSlot == slot) {
-  //       setSelectedSlot(null);
-  //     } else {
-  //       setSelectedSlot(slot);
-  //     }
-  //   };
-  //   const handleFormSubmit = async (values) => {
-  //     try {
-  //       await addDoc(collection(db, "channels"), {
-  //         ...values,
-  //         // slot: selectedSlot,
-  //         date: date.toISOString(),
-  //         // guests: selectedNumber,
-  //         disease: disease,
-  //       });
-
-  //       alert("Booking successfully Done!");
-  //       setModalVisible(false);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
   return (
     <View className="flex-1">
       <View>

@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -7,25 +8,22 @@ import {
   ScrollView,
   ImageBackground,
 } from "react-native";
-import React, { useState } from "react";
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Header } from "react-native/Libraries/NewAppScreen";
+import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import banner from "@/assets/images/banner.png";
-import { LinearGradient } from "expo-linear-gradient";
-// import Header from "@/layouts/header";
-// import Ionicons from "@expo/vector-icons/Ionicons";
+
+type BoardState = (string | null)[];
 
 const FunEvents = () => {
   const router = useRouter();
-
-  const [board, setBoard] = useState(Array(9).fill(null));
-  const [currentPlayer, setCurrentPlayer] = useState("X");
+  const [board, setBoard] = useState<BoardState>(Array(9).fill(null));
+  const [currentPlayer, setCurrentPlayer] = useState<"X" | "O">("X");
   const [winner, setWinner] = useState<string | null>(null);
-  const [isGameOver, setIsGameOver] = useState(false); // Track if the game is over
+  const [isGameOver, setIsGameOver] = useState(false);
 
-  const checkWinner = (newBoard: string[]) => {
+  const checkWinner = (board: BoardState): string | null => {
     const winningCombinations = [
       [0, 1, 2],
       [3, 4, 5],
@@ -37,21 +35,20 @@ const FunEvents = () => {
       [2, 4, 6], // Diagonals
     ];
 
-    for (let combo of winningCombinations) {
-      const [a, b, c] = combo;
-      if (
-        newBoard[a] &&
-        newBoard[a] === newBoard[b] &&
-        newBoard[a] === newBoard[c]
-      ) {
-        return newBoard[a]; // Return "X" or "O" as the winner
+    for (const [a, b, c] of winningCombinations) {
+      if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+        return board[a];
       }
+    }
+
+    if (board.every((cell) => cell !== null)) {
+      return "Draw";
     }
 
     return null;
   };
 
-  const handlePress = (index: number) => {
+  const handlePress = (index: number): void => {
     if (board[index] || winner) return;
 
     const newBoard = [...board];
@@ -61,112 +58,137 @@ const FunEvents = () => {
     const gameWinner = checkWinner(newBoard);
     if (gameWinner) {
       setWinner(gameWinner);
-      setIsGameOver(true); // Show the prompt when the game ends
-    } else if (newBoard.every((cell) => cell !== null)) {
-      setWinner("Draw");
       setIsGameOver(true);
     } else {
       setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
     }
   };
 
-  const resetGame = () => {
+  const resetGame = (): void => {
     setBoard(Array(9).fill(null));
     setCurrentPlayer("X");
     setWinner(null);
-    setIsGameOver(false); // Hide the modal
+    setIsGameOver(false);
   };
+
+  const renderCell = (index: number): JSX.Element => {
+    const cellValue = board[index];
+    const isActive = cellValue !== null;
+    const cellColor = cellValue === "X" ? "text-red-500" : "text-blue-500";
+    const cellBg =
+      cellValue === "X"
+        ? "bg-red-50"
+        : cellValue === "O"
+        ? "bg-blue-50"
+        : "bg-white";
+
+    return (
+      <TouchableOpacity
+        key={index}
+        className={`w-20 h-20 ${cellBg} border-2 border-purple-200 items-center justify-center rounded-xl m-1 shadow-md`}
+        onPress={() => handlePress(index)}
+        activeOpacity={0.7}
+      >
+        {isActive && (
+          <Text className={`text-4xl font-bold ${cellColor}`}>{cellValue}</Text>
+        )}
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <LinearGradient colors={["#f7f7fc", "#e6f2ff"]} className="flex-1">
       <SafeAreaView
-        style={[
-          Platform.OS == "android" && { paddingBottom: 60 },
-          Platform.OS == "ios" && { paddingBottom: 20 },
-        ]}
+        className={`flex-1 ${Platform.OS === "android" ? "pb-16" : "pb-5"}`}
       >
-        <View style={{ flex: -1 }}>
-          <View className=" ">
-            <ImageBackground
-              resizeMode="cover"
-              style={{
-                position: "absolute",
-                width: "100%",
-                height: 220, // or whatever height you need
-                top: 0,
-                left: 0,
-                right: 0,
-                borderBottomLeftRadius: 100,
-              }}
-              source={banner}
-            ></ImageBackground>
-          </View>
-          {/* <View> */}
-          {/* <Header
-          left={
-            <Link href={"/"} asChild>
-              <TouchableOpacity>
-                <Ionicons name="arrow-back" size={24} color="black" />
-              </TouchableOpacity>
-            </Link>
-          }
-          centerText="Fun Events"
-        /> */}
-          <ScrollView style={{ marginTop: 110 }}>
-            <View className=" content-center items-center justify-center mt-36">
-              <Text className="text-text-dark text-3xl font-bold mb-4">
+        {/* Banner Background */}
+        <View className="top-0 left-0 right-0">
+          <ImageBackground
+            source={banner}
+            resizeMode="cover"
+            className="w-full h-56"
+            style={{ borderBottomLeftRadius: 40, borderBottomRightRadius: 40 }}
+          >
+            <View className="absolute inset-0 bg-black opacity-20 rounded-b-xl" />
+          </ImageBackground>
+        </View>
+
+        <ScrollView className="">
+          <View className="items-center mt-2 px-4 pb-10">
+            {/* Header */}
+            <View className="mb-8 items-center">
+              <Text className="text-3xl font-extrabold text-gray-800">
                 Relax Your Mind
               </Text>
-
-              {/* 3x3 Grid Fix */}
-              <View className="flex flex-wrap flex-row w-[240px]">
-                {board.map((cell, index) => (
-                  <TouchableOpacity
-                    key={index}
-                    className="w-[70px] h-[70px] border border-primary-500 items-center justify-center rounded-full m-1"
-                    onPress={() => handlePress(index)}
-                  >
-                    <Text className="text-primary-500 text-4xl font-bold">
-                      {cell}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
-              </View>
-              <TouchableOpacity
-                className="mt-10 p-3 bg-primary-500 rounded-lg w-36 items-center justify-center"
-                onPress={resetGame}
-              >
-                <Text className="text-gray-50 text-lg font-bold">
-                  Restart Game
-                </Text>
-              </TouchableOpacity>
-
-              {/* Prompt Box (Modal) when Game Over */}
-              <Modal visible={isGameOver} transparent animationType="slide">
-                <View className="flex-1 justify-center items-center bg-[#201a245b]">
-                  <View className="bg-gray-50 p-4 rounded-lg justify-center items-center w-96 h-60">
-                    <Text className="text-text-dark text-2xl font-bold mb-3">
-                      {winner === "Draw"
-                        ? "🤝 It's a Draw!"
-                        : `🎉 Player ${winner} Wins!`}
-                    </Text>
-
-                    <TouchableOpacity
-                      className="mt-4 px-6 py-3 bg-purple-600 rounded-lg"
-                      onPress={() => (
-                        resetGame(), // Reset the game
-                        router.navigate("/mentalDisease/handlePredict") // Navigate to review screen
-                      )}
-                    >
-                      <Text className="text-gray-50 text-lg font-bold">
-                        Review
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </Modal>
+              <Text className="text-lg text-gray-600 mt-1">
+                Play Tic-Tac-Toe
+              </Text>
             </View>
-          </ScrollView>
-        </View>
+
+            {/* Game Status */}
+            <View className="bg-white/80 px-6 py-3 rounded-full mb-6">
+              <Text className="text-lg font-semibold text-gray-700">
+                {!winner ? `${currentPlayer}'s Turn` : "Game Over"}
+              </Text>
+            </View>
+
+            {/* Game Board */}
+            <View className="flex-row flex-wrap justify-center w-72 mb-8">
+              {Array(9)
+                .fill(null)
+                .map((_, index) => renderCell(index))}
+            </View>
+
+            {/* Reset Button */}
+            <TouchableOpacity
+              className="bg-purple-600 px-8 py-3 rounded-full shadow-lg"
+              onPress={resetGame}
+            >
+              <Text className="text-white text-lg font-bold">Restart Game</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+
+        {/* Game Over Modal */}
+        <Modal
+          visible={isGameOver}
+          transparent
+          animationType="fade"
+          onRequestClose={() => setIsGameOver(false)}
+        >
+          <View className="flex-1 justify-center items-center bg-black/50">
+            <View className="bg-white w-80 p-6 rounded-2xl items-center">
+              <Text className="text-2xl font-bold text-gray-800 mb-4">
+                {winner === "Draw"
+                  ? "🤝 It's a Draw!"
+                  : `🎉 Player ${winner} Wins!`}
+              </Text>
+
+              <View className="flex-row justify-between w-full mt-4">
+                <TouchableOpacity
+                  className="bg-purple-600 px-6 py-3 rounded-lg flex-1 mr-2"
+                  onPress={() => {
+                    resetGame();
+                    router.navigate("/mentalDisease/handlePredict");
+                  }}
+                >
+                  <Text className="text-white font-bold text-center">
+                    Review
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  className="bg-gray-800 px-6 py-3 rounded-lg flex-1 ml-2"
+                  onPress={resetGame}
+                >
+                  <Text className="text-white font-bold text-center">
+                    Play Again
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </Modal>
       </SafeAreaView>
     </LinearGradient>
   );
