@@ -66,7 +66,7 @@ const HandlePredict = () => {
       setSuccess(false);
 
       // Get sentiment prediction
-      const response = await axios.post("http://192.168.221.85:5000/predict", {
+      const response = await axios.post("http://192.168.12.85:5000/predict", {
         review: review,
       });
 
@@ -89,6 +89,7 @@ const HandlePredict = () => {
       setSuccess(false);
     } finally {
       setLoading(false);
+      setReview("");
     }
   };
 

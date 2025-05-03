@@ -18,13 +18,14 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { getAuth, signOut } from "firebase/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { router } from "expo-router";
+import { useRouter } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 
 const ProfileScreen = () => {
   const insets = useSafeAreaInsets();
   const auth = getAuth();
   const [userEmail, setUserEmail] = useState<string | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchUserEmail = async () => {
@@ -142,7 +143,7 @@ const ProfileScreen = () => {
                   testID="login-button"
                 >
                   <View className=" flex-row items-center justify-center">
-                    <Text className="text-lg font-thin text-white mr-2">
+                    <Text className="text-lg font-bold text-white mr-2">
                       Log In
                     </Text>
                     <MaterialCommunityIcons
@@ -224,6 +225,25 @@ const ProfileScreen = () => {
               <Text className="font-bold text-gray-800">{user.streak}</Text>
               <Text className="text-gray-500 text-xs">Day streak</Text>
             </View>
+          </View>
+          {/* Predect History */}
+          <Text className="text-lg font-bold text-gray-800 mb-3">History</Text>
+          <View className="mb-6">
+            <TouchableOpacity
+              className="bg-white p-4 rounded-xl mb-3 flex-row items-center shadow-sm"
+              onPress={() => router.navigate("/mentalDisease/historyAnalyze")}
+            >
+              <View className="bg-blue-100 p-3 rounded-full mr-4">
+                <MaterialIcons name="mediation" size={20} color="#4f46e5" />
+              </View>
+              <View className="flex-1">
+                <Text className="font-semibold text-gray-800">
+                  Check Your Predect History
+                </Text>
+                <Text className="text-gray-500 text-sm">2 days ago</Text>
+              </View>
+              <MaterialIcons name="chevron-right" size={24} color="#9ca3af" />
+            </TouchableOpacity>
           </View>
 
           {/* Recent Activities */}
